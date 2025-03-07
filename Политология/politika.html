@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politics quiz</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>Формула вторая: Политика</h1>
+        <div class="question" id="question"></div>
+        <div class="buttons">
+            <button class="correct" onclick="checkAnswer(true)">✅ Правильно</button>
+            <button class="wrong" onclick="checkAnswer(false)">❌ Неправильно</button>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="score" id="score"></div>
+    </div>
+</body>
+<style>
+    body { 
+        font-family: Arial, sans-serif; 
+        text-align: center; 
+        margin: 50px; 
+        background-color: #cecedc; 
+        color: #333;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: auto;
+    }
+    h1 {
+        color: #2c3e50;
+    }
+    .question { 
+        font-size: 20px; 
+        margin: 20px 0;
+        font-weight: bold;
+    }
+    .buttons button { 
+        margin: 10px; 
+        padding: 10px 20px; 
+        font-size: 18px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .buttons button:hover {
+        opacity: 0.8;
+    }
+    .buttons .correct {
+        background-color: #27ae60; 
+        color: white;
+    }
+    .buttons .wrong {
+        background-color: #c73626; 
+        color: white;
+    }
+    .result {
+        font-size: 18px; 
+        margin-top: 20px;
+        font-weight: bold;
+    }
+    .score {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
+
+
+<script>
+    const questions = [
+        { text: "Политика — это только управление государством.", correct: false, explanation: "Нет, политика также включает баланс интересов и власть." },
+        { text: "Власть является основным инструментом политики.", correct: true, explanation: "Верно, власть играет ключевую роль в политике." },
+        { text: "Баланс интересов — это учет интересов различных социальных групп.", correct: true, explanation: "Да, политика должна учитывать интересы граждан, бизнеса и государства." },
+        { text: "Управление общественными процессами не связано с разработкой законов.", correct: false, explanation: "Нет, законотворчество — важная часть управления общественными процессами." }
+    ];
+    
+    let currentQuestion = 0;
+    let score = 0;
+    
+    function loadQuestion() {
+        if (currentQuestion < questions.length) {
+            document.getElementById("question").textContent = questions[currentQuestion].text;
+            document.getElementById("result").textContent = "";
+        } else {
+            document.getElementById("question").textContent = "Игра окончена! Ваш счёт: " + score + " / " + questions.length;
+            document.querySelector(".buttons").style.display = "none";
+        }
+    }
+    
+    function checkAnswer(userAnswer) {
+        const question = questions[currentQuestion];
+        if (userAnswer === question.correct) {
+            score++;
+            document.getElementById("result").textContent = "✅ Верно! " + question.explanation;
+        } else {
+            document.getElementById("result").textContent = "❌ Ошибка! " + question.explanation;
+        }
+        currentQuestion++;
+        setTimeout(loadQuestion, 2000);
+    }
+    
+    loadQuestion();
+    function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").textContent = questions[currentQuestion].text;
+                document.getElementById("result").textContent = "";
+            } else {
+                let finalMessage = "Игра окончена! Ваш счёт: " + score + " / " + questions.length + ". ";
+                if (score === questions.length) {
+                    finalMessage += "Отличный результат! ";
+                } else if (score >= questions.length / 2) {
+                    finalMessage += "Хороший результат, но есть куда стремиться! ";
+                }
+                document.getElementById("question").textContent = finalMessage;
+                document.querySelector(".buttons").style.display = "none";
+                document.getElementById("result").textContent = ""; // Убираем последний комментарий
+                
+                let explanationText = `
+                    <h2> Политика = Власть + Управление общественными процессами + Баланс интересов </h2>
+                    <p><strong>Власть:</strong> Основной инструмент политики.</p>
+                    <p><strong>Управление общественными процессами:</strong> Разработка законов, реализация социальных программ, обеспечение безопасности.</p>
+                    <p><strong>Баланс интересов:</strong> Учёт интересов различных социальных групп.</p>
+                `;
+                let explanationDiv = document.createElement("div");
+                explanationDiv.innerHTML = explanationText;
+                document.querySelector(".container").appendChild(explanationDiv);
+            }
+        }
+</script>
+</body>
+<button onclick="window.location.href='politologia.html'" 
+    style="display: block; margin: 20px auto; padding: 10px 20px; font-size: 18px; border: none; border-radius: 5px; background-color: #0872b8; color: white; cursor: pointer; transition: 0.3s;">
+    ➡ Перейти к третьей формуле
+</button>
+</html>
